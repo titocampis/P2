@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "pav_analysis.h"
 #include "vad.h"
 
 const float FRAME_TIME = 10.0F; /* in ms. */
@@ -42,7 +42,10 @@ Features compute_features(const float *x, int N) {
    * For the moment, compute random value between 0 and 1 
    */
   Features feat;
-  feat.zcr = feat.p = feat.am = (float) rand()/RAND_MAX;
+  feat.p = compute_power(x,N);
+  feat.am = compute_am(x,N);
+  feat.zcr = compute_zcr(x,N);
+//  feat.zcr = feat.p = feat.am = (float) rand()/RAND_MAX;
   return feat;
 }
 
@@ -55,6 +58,9 @@ VAD_DATA * vad_open(float rate) {
   vad_data->state = ST_INIT;
   vad_data->sampling_rate = rate;
   vad_data->frame_length = rate * FRAME_TIME * 1e-3;
+  vad_data->k_0 = -150;
+  vad_data->k_1 = -110;
+  vad_data->k_2 = -95;
   return vad_data;
 }
 
@@ -93,16 +99,29 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
     break;
 
   case ST_SILENCE:
-    if (f.p > 0.95)
-      vad_data->state = ST_VOICE;
+    if (f.p > vad_data->k1)
+      vad_data->state = ST_MAYBEVOICE;
     break;
 
   case ST_VOICE:
-    if (f.p < 0.01)
+    if (f.p < vad_data->k2)
+      vad_data->state = ST_MAYBESILENCE;
+    break;
+  
+  case ST_MAYBESILENCE:
+    if(f.p < vad.data->k1) {
       vad_data->state = ST_SILENCE;
+    } else if(f.p > vad.data->k2) {
+      vad_data->sate = ST_VOICE;
+    }
     break;
 
-  case ST_UNDEF:
+  case ST_MAYBEVOICE:
+    if(f.p > vad.data->k2){
+      vad_data->state = ST_VOICE;
+    } else if(f.p < vad.data->k1){
+      vad_data->state = ST_SILENCE;
+    }
     break;
   }
 
