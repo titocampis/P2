@@ -5,16 +5,24 @@
 #include "vad.h"
 
 const float FRAME_TIME = 10.0F; /* in ms. */
-
 /* 
  * As the output state is only ST_VOICE, ST_SILENCE, or ST_UNDEF,
  * only this labels are needed. You need to add all labels, in case
  * you want to print the internal state in string format
  */
+int fm;
 
 const char *state_str[] = {
   "UNDEF", "S", "V", "INIT"
 };
+
+int signo(float x){
+    if(x>=0){
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
 const char *state2str(VAD_STATE st) {
   return state_str[st];
@@ -42,9 +50,31 @@ Features compute_features(const float *x, int N) {
    * For the moment, compute random value between 0 and 1 
    */
   Features feat;
-  feat.p = compute_power(x,N);
-  feat.am = compute_am(x,N);
-  feat.zcr = compute_zcr(x,N);
+  float pow, am, zcr;
+
+  float sum = 0;
+  for(int i=0; i<N;i++){
+        sum = sum + (x[i]*x[i]);
+    }
+  pow = 10*log10(sum/N);
+  sum = 0;
+
+  for(int i = 0; i < N; i ++){
+        sum = sum + fabs(x[i]);
+  }
+  am = sum/N;
+  sum = 0;
+
+  for(int i = 1; i < N ; i++){
+    if(signo(x[i-1])!=signo(x[i])){
+      sum += 1;
+    }
+  }
+  zcr = (fm/2)*(sum/(N-1));
+
+  feat.p = pow;
+  feat.am = am;
+  feat.zcr = zcr;
 //  feat.zcr = feat.p = feat.am = (float) rand()/RAND_MAX;
   return feat;
 }
@@ -58,17 +88,18 @@ VAD_DATA * vad_open(float rate) {
   vad_data->state = ST_INIT;
   vad_data->sampling_rate = rate;
   vad_data->frame_length = rate * FRAME_TIME * 1e-3;
-  vad_data->k_0 = -150;
-  vad_data->k_1 = -110;
-  vad_data->k_2 = -95;
+  vad_data->k0 = -120;
+  vad_data->k1 = -100;
+  vad_data->k2 = -80;
   return vad_data;
 }
 
 VAD_STATE vad_close(VAD_DATA *vad_data) {
+  VAD_STATE state = ST_SILENCE;
   /* 
    * TODO: decide what to do with the last undecided frames
    */
-  VAD_STATE state = vad_data->state;
+  state = vad_data->state;
 
   free(vad_data);
   return state;
@@ -109,17 +140,17 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
     break;
   
   case ST_MAYBESILENCE:
-    if(f.p < vad.data->k1) {
+    if(f.p < vad_data->k1) {
       vad_data->state = ST_SILENCE;
-    } else if(f.p > vad.data->k2) {
-      vad_data->sate = ST_VOICE;
+    } else if(f.p > vad_data->k2) {
+      vad_data->state = ST_VOICE;
     }
     break;
 
   case ST_MAYBEVOICE:
-    if(f.p > vad.data->k2){
+    if(f.p > vad_data->k2){
       vad_data->state = ST_VOICE;
-    } else if(f.p < vad.data->k1){
+    } else if(f.p < vad_data->k1){
       vad_data->state = ST_SILENCE;
     }
     break;
