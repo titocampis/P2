@@ -98,9 +98,22 @@ Ejercicios
 - Etiquete manualmente los segmentos de voz y silencio del fichero grabado al efecto. Inserte, a 
   continuación, una captura de `wavesurfer` en la que se vea con claridad la señal temporal, el contorno de
   potencia y la tasa de cruces por cero, junto con el etiquetado manual de los segmentos.
+  
+  Lo primero que hay que hacer para poder calcular la precisión de un detector de voz, es generar nosotros un fichero de etiqutas etiquetas, donde determinemos claramente donde hay voz y donde no. Este fichero de etiquetas lo compararemos con el fichero de etiquetas generado por nuestro programa.
 
+Así, generamos una señal de audio y con audacity aplicamos las etiquetas correspondientes
+
+//FOTO DE AUDACITY AUDIO Y ETIQUETAS, SI PUEDES PLOTEAR LA POTENCIA TAMB DE PUTA MADRE
+
+Con el código que nos viene ya implementado (que etiqueta de forma aleatoria) generamos aleatoriamente un fichero de etiquetas .lab que podremos observar con audacity
+
+//FOTO DE AUDACITY AUDIO Y ETIQUETA + ETIQUETA GENERADA POR EL PROGRAMA QUE ESTÁ SUBIDA AL DRIVE .LAB
+
+COMPARAR LAS DOS FOTOS!!!
 
 - A la vista de la gráfica, indique qué valores considera adecuados para las magnitudes siguientes:
+
+FALTA GRAFICA!!!
 
 	* Incremento del nivel potencia en dB, respecto al nivel correspondiente al silencio inicial, para estar
       seguros de que un segmento de señal se corresponde con voz.
@@ -114,6 +127,16 @@ Ejercicios
 
 - Complete el código de los ficheros de la práctica para implementar un detector de actividad vocal tan
   exacto como sea posible. Tome como objetivo la maximización de la puntuación-F `TOTAL`.
+  
+  El programa que implementaremos se basará en una máquina de estados, con los siguientes estados: silence, voice, maybe silence, maybe voice. Para definir en qué estado nos encontramos y cual pasamos, nos fijamos en la potencia y en unos umbrales (k0,k1,k2) que nosotros nos definimos. El nivel k0 será el nivel de silencio, por debajo de este umbral seguro que hay silencio, el nivel k2 será el nivel de voz, por encima de este seguro que hay voz. Entre estos y k1 se encuentran los estados intermedios: maybe voice y maybe silence. Estos dos últimos los utilizamos para no confundir silencios de los propios fonemas (que algunos los presentan) con silencios reales y al contrario, no detectar voz con picos de silencio. En estos dos estados sólo si nos mantenemos en ellos cierto tiempo, pasaremos a los estados silence y voice.
+
+Para empezar, no adaptamos el umbral de decisión a los niveles de la señal, pues estos pueden cambiar según la señal que tengamos. Por eso, para determinar el k0 cogeremos unas cuantas muestras del inicio de la señal (que sabemos que será silencio) y medimos la potencia del ruido, y con eso, determinamos el k0. A partir de k0 calculamos k1 y k2 con unas ciertas constantes alfa.
+
+FOTOS CODIGO
+
+Empezamos definiendo las siguientes constantes, que nos ayudarán a decidir cuando o cuando no cambiar de un estado a otro, además de los umbrales de decisión.
+
+FOTOS CODIGO
 
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
   automática conseguida para el fichero grabado al efecto. 
