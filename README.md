@@ -99,7 +99,7 @@ Ejercicios
   continuación, una captura de `wavesurfer` en la que se vea con claridad la señal temporal, el contorno de
   potencia y la tasa de cruces por cero, junto con el etiquetado manual de los segmentos.
 
-##### PREPARACIÓN DE FICHEROS
+#### **Preparación de ficheros**
 
 Lo primero que hay que hacer para poder calcular la precisión de un detector de voz, es generar nosotros un fichero de etiqutas etiquetas, donde determinemos claramente donde hay voz y donde no. Este fichero de etiquetas lo compararemos con el fichero de etiquetas generado por nuestro programa.
 
@@ -130,7 +130,7 @@ FALTA GRAFICA!!!
 - Complete el código de los ficheros de la práctica para implementar un detector de actividad vocal tan
   exacto como sea posible. Tome como objetivo la maximización de la puntuación-F `TOTAL`.
 
-##### Estructura
+#### Estructura
 
 El programa que implementaremos se basará en una máquina de estados, con los siguientes estados: silence, voice, maybe silence, maybe voice. Para definir en qué estado nos encontramos y cual pasamos, nos fijamos en la potencia y en unos umbrales (k0,k1,k2) que nosotros nos definimos. El nivel k0 será el nivel de silencio, por debajo de este umbral seguro que hay silencio, el nivel k2 será el nivel de voz, por encima de este seguro que hay voz. Entre estos y k1 se encuentran los estados intermedios: maybe voice y maybe silence. Estos dos últimos los utilizamos para no confundir silencios de los propios fonemas (que algunos los presentan) con silencios reales y al contrario, no detectar voz con picos de silencio. En estos dos estados sólo si nos mantenemos en ellos cierto tiempo, pasaremos a los estados silence y voice.
 
@@ -140,7 +140,7 @@ Para empezar, no adaptamos el umbral de decisión a los niveles de la señal, pu
 
 FOTOS CODIGO
 
-##### Diagrama de estados del detector
+#### Diagrama de estados del detector
 
 Empezamos definiendo las siguientes constantes, que nos ayudarán a decidir cuando o cuando no cambiar de un estado a otro, además de los umbrales de decisión.
 
