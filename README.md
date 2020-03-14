@@ -134,7 +134,7 @@ FALTA GRAFICA!!!
 
 El programa que implementaremos se basará en una máquina de estados, con los siguientes estados: silence, voice, maybe silence, maybe voice. Para definir en qué estado nos encontramos y cual pasamos, nos fijamos en la potencia y en unos umbrales (k0,k1,k2) que nosotros nos definimos. El nivel k0 será el nivel de silencio, por debajo de este umbral seguro que hay silencio, el nivel k2 será el nivel de voz, por encima de este seguro que hay voz. Entre estos y k1 se encuentran los estados intermedios: maybe voice y maybe silence. Estos dos últimos los utilizamos para no confundir silencios de los propios fonemas (que algunos los presentan) con silencios reales y al contrario, no detectar voz con picos de silencio. En estos dos estados sólo si nos mantenemos en ellos cierto tiempo, pasaremos a los estados silence y voice.
 
-##### ***Niveles de referencia (k0, k1, k2)***
+#### ***Niveles de referencia (k0, k1, k2)***
 
 Para empezar, no adaptamos el umbral de decisión a los niveles de la señal, pues estos pueden cambiar según la señal que tengamos. Por eso, para determinar el k0 cogeremos unas cuantas muestras del inicio de la señal (que sabemos que será silencio) y medimos la potencia del ruido, y con eso, determinamos el k0. A partir de k0 calculamos k1 y k2 con unas ciertas constantes alfa.
 
