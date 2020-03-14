@@ -106,6 +106,7 @@ Lo primero que hay que hacer para poder calcular la precisión de un detector de
 Así, generamos una señal de audio y con audacity aplicamos las etiquetas correspondientes
 
 //FOTO DE AUDACITY AUDIO Y ETIQUETAS, SI PUEDES PLOTEAR LA POTENCIA TAMB DE PUTA MADRE
+
 EJEMPLO GRAFICA
 <img src="img/tanh.png" width="640" align="center">
 
