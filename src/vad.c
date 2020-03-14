@@ -54,8 +54,8 @@ Features compute_features(const float *x, int N) {
 
   float sum = 0;
   for(int i=0; i<N;i++){
-        sum = sum + (x[i]*x[i]);
-    }
+    sum = sum + (x[i]*x[i]);
+  }
   pow = 10*log10(sum/N);
   sum = 0;
 
@@ -88,9 +88,9 @@ VAD_DATA * vad_open(float rate) {
   vad_data->state = ST_INIT;
   vad_data->sampling_rate = rate;
   vad_data->frame_length = rate * FRAME_TIME * 1e-3;
-  vad_data->k0 = -120;
-  vad_data->k1 = -100;
-  vad_data->k2 = -80;
+  vad_data->k0 = 0;
+  vad_data->k1 = 0;
+  vad_data->k2 = 0;
   return vad_data;
 }
 
