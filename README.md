@@ -156,11 +156,23 @@ FOTOS CODIGO
 
 Empezamos definiendo las siguientes constantes, que nos ayudarán a decidir cuando o cuando no cambiar de un estado a otro, además de los umbrales de decisión.
 
+Empezamos definiendo las anteriores constantes, que nos ayudarán a decidir cuando o cuando no cambiar de un estado a otro, además de los umbrales de decisión.
+
+Y en función de estos umbrales, nos montaremos nuestro diagrama de estados:
+
+- Si nos encontramos en silencio, si la potencia de la señal pasa el umbral k1 nos dirigiremos a maybe_voice.
+
+- Si nos encontramos en voz, si la potencia de la señal baja del umbral k2 nos dirigiremos a maybe_silence.
+
+- Si nos encontramos en maybe_voice o maybe_silence, si la potencia de la señal supera el umbral k2 nos dirigiremos a voice y si  baja del k1 nos iremos a silence.
+
+Todo esto está implementado en la función vad.c
+
+
 FOTOS CODIGO
 
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
   automática conseguida para el fichero grabado al efecto. 
-
 
 - Explique, si existen. las discrepancias entre el etiquetado manual y la detección automática.
 
