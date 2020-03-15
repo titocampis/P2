@@ -105,8 +105,6 @@ Lo primero que hay que hacer para poder calcular la precisión de un detector de
 
 Así, generamos una señal de audio y con audacity aplicamos las etiquetas correspondientes
 
-//FOTO DE AUDACITY AUDIO Y ETIQUETAS, SI PUEDES PLOTEAR LA POTENCIA TAMB DE PUTA MADRE
-
 <img src="img/audio+etiquetas.png" width="640" align="center">
 
 A continuación adjuntamos una captura de los valores de nuestras etiquetas:
@@ -117,7 +115,11 @@ Además nuestros contorno de potencia y tasa de cruces por cero son los siguient
 
 <img src="img/analisisfrec.png" width="640" align="center">
 
+FALTA CRUCES!!!
+
 Con el código que nos viene ya implementado (que etiqueta de forma aleatoria) generamos aleatoriamente un fichero de etiquetas .lab que podremos observar con audacity
+
+NO SE HACERLO EN AUDACITY!!
 
 //FOTO DE AUDACITY AUDIO Y ETIQUETA + ETIQUETA GENERADA POR EL PROGRAMA QUE ESTÁ SUBIDA AL DRIVE .LAB
 
