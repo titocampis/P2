@@ -109,6 +109,7 @@ Así, generamos una señal de audio y con audacity aplicamos las etiquetas corre
 
 EJEMPLO GRAFICA
 <img src="img/tanh.png" width="640" align="center">
+<img src="img/audio+etiquetas.png" width="640" align="center">
 
 Con el código que nos viene ya implementado (que etiqueta de forma aleatoria) generamos aleatoriamente un fichero de etiquetas .lab que podremos observar con audacity
 
