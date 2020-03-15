@@ -1,5 +1,12 @@
 /*/
+
 **/.DS_Store
 
 !/src
 !scripts
+=======
+
+!/docopt_c/
+!/scripts/
+!/src/
+
