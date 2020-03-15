@@ -136,6 +136,8 @@ FALTA GRAFICA!!!
 
 	* ¿Es capaz de sacar alguna conclusión a partir de la evolución de la tasa de cruces por cero?
 
+A continuación adjuntamos las potencias del audio, para poder ver las diferencias:
+
 Potencia de silencio
 
 <img src="img/silencio.png" width="640" align="center">
@@ -143,6 +145,8 @@ Potencia de silencio
 Potencia de voz (concretamente a)
 
 <img src="img/a.png" width="640" align="center">
+
+Como podemos observar. la media del silencio es de unos -72dB, mientras que en el segmento con habla tenemos unos -57dB. Por lo tanto, tenemos una diferencia de alrededor de 20dB.
 
 ### Desarrollo del detector de actividad vocal
 
