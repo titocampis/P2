@@ -116,19 +116,11 @@ Además nuestros contorno de potencia y tasa de cruces por cero son los siguient
 <img src="img/analisisfrec.png" width="640" align="center">
 
 
-FALTA CRUCES!!!
-
 Con el código que nos viene ya implementado (que etiqueta de forma aleatoria) generamos aleatoriamente un fichero de etiquetas .lab que podremos observar con audacity
 
-NO SE HACERLO EN AUDACITY!!
-
-//FOTO DE AUDACITY AUDIO Y ETIQUETA + ETIQUETA GENERADA POR EL PROGRAMA QUE ESTÁ SUBIDA AL DRIVE .LAB
-
-COMPARAR LAS DOS FOTOS!!!
 
 - A la vista de la gráfica, indique qué valores considera adecuados para las magnitudes siguientes:
 
-FALTA GRAFICA!!!
 
 	* Incremento del nivel potencia en dB, respecto al nivel correspondiente al silencio inicial, para estar
       seguros de que un segmento de señal se corresponde con voz.
@@ -199,7 +191,7 @@ Todo esto está implementado en main_vad.c
 
 Después de compilar y ejecutar los ficheros oportunos, obtenemos los resultados.
 
-<img src="img/codigo3.jpeg" width="640" align="center">
+<img src="img/codigo.jpeg" width="640" align="center">
 
 
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
@@ -211,6 +203,7 @@ Después de compilar y ejecutar los ficheros oportunos, obtenemos los resultados
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
   el resumen).
 
+Para aquellos ejercicios que requerian un etiquetado automático, en un principio los empezamos con wavesurfer, pero en el momento en que tuvimos que pasar al audacity porque ese ordenador dejó de funcionar, no hemos conseguido entender como iba en este, ya que la mayor parte de tutoriales y manuales que hemos encntrado están enfocados a la edición musical, como por ejemplo juntar dos canciones y no a cosas más técnicas como las que se requieren en esta práctica.
 
 ### Trabajos de ampliación
 
