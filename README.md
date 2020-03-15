@@ -105,10 +105,6 @@ Lo primero que hay que hacer para poder calcular la precisión de un detector de
 
 Así, generamos una señal de audio y con audacity aplicamos las etiquetas correspondientes
 
-//FOTO DE AUDACITY AUDIO Y ETIQUETAS, SI PUEDES PLOTEAR LA POTENCIA TAMB DE PUTA MADRE
-
-EJEMPLO GRAFICA
-<img src="img/tanh.png" width="640" align="center">
 <img src="img/audio+etiquetas.png" width="640" align="center">
 
 A continuación adjuntamos una captura de los valores de nuestras etiquetas:
@@ -119,7 +115,12 @@ Además nuestros contorno de potencia y tasa de cruces por cero son los siguient
 
 <img src="img/analisisfrec.png" width="640" align="center">
 
+
+FALTA CRUCES!!!
+
 Con el código que nos viene ya implementado (que etiqueta de forma aleatoria) generamos aleatoriamente un fichero de etiquetas .lab que podremos observar con audacity
+
+NO SE HACERLO EN AUDACITY!!
 
 //FOTO DE AUDACITY AUDIO Y ETIQUETA + ETIQUETA GENERADA POR EL PROGRAMA QUE ESTÁ SUBIDA AL DRIVE .LAB
 
@@ -136,11 +137,70 @@ FALTA GRAFICA!!!
 
 	* ¿Es capaz de sacar alguna conclusión a partir de la evolución de la tasa de cruces por cero?
 
+A continuación adjuntamos las potencias del audio, para poder ver las diferencias:
+
+Potencia de silencio
+
+<img src="img/silencio.png" width="640" align="center">
+
+Potencia de voz (concretamente a)
+
+<img src="img/a.png" width="640" align="center">
+
+Como podemos observar. la media del silencio es de unos -72dB, mientras que en el segmento con habla tenemos unos -57dB. Por lo tanto, tenemos una diferencia de alrededor de 20dB.
 
 ### Desarrollo del detector de actividad vocal
 
 - Complete el código de los ficheros de la práctica para implementar un detector de actividad vocal tan
   exacto como sea posible. Tome como objetivo la maximización de la puntuación-F `TOTAL`.
+  
+#### ***Estructura***
+
+El programa que implementaremos se basará en una máquina de estados, con los siguientes estados: silence, voice, maybe silence, maybe voice. Para definir en qué estado nos encontramos y cual pasamos, nos fijamos en la potencia y en unos umbrales (k0,k1,k2) que nosotros nos definimos. El nivel k0 será el nivel de silencio, por debajo de este umbral seguro que hay silencio, el nivel k2 será el nivel de voz, por encima de este seguro que hay voz. Entre estos y k1 se encuentran los estados intermedios: maybe voice y maybe silence. Estos dos últimos los utilizamos para no confundir silencios de los propios fonemas (que algunos los presentan) con silencios reales y al contrario, no detectar voz con picos de silencio. En estos dos estados sólo si nos mantenemos en ellos cierto tiempo, pasaremos a los estados silence y voice.
+
+#### ***Niveles de referencia (k0, k1, k2)***
+
+Para empezar, no adaptamos el umbral de decisión a los niveles de la señal, pues estos pueden cambiar según la señal que tengamos. Por eso, para determinar el k0 cogeremos unas cuantas muestras del inicio de la señal (que sabemos que será silencio) y medimos la potencia del ruido, y con eso, determinamos el k0. A partir de k0 calculamos k1 y k2 con unas ciertas constantes alfa.
+
+<img src="img/codigo2.jpeg" width="640" align="center">
+<img src="img/codigo1.jpeg" width="640" align="center">
+
+#### ***Diagrama de estados del detector***
+
+Empezamos definiendo las siguientes constantes, que nos ayudarán a decidir cuando o cuando no cambiar de un estado a otro, además de los umbrales de decisión.
+
+Empezamos definiendo las anteriores constantes, que nos ayudarán a decidir cuando o cuando no cambiar de un estado a otro, además de los umbrales de decisión.
+
+Y en función de estos umbrales, nos montaremos nuestro diagrama de estados:
+
+- Si nos encontramos en silencio, si la potencia de la señal pasa el umbral k1 nos dirigiremos a maybe_voice.
+
+- Si nos encontramos en voz, si la potencia de la señal baja del umbral k2 nos dirigiremos a maybe_silence.
+
+- Si nos encontramos en maybe_voice o maybe_silence, si la potencia de la señal supera el umbral k2 nos dirigiremos a voice y si  baja del k1 nos iremos a silence.
+
+Todo esto está implementado en la función vad.c
+
+#### ***Generando los ficheros .vad***
+
+Una vez tenemos los estados, ahora es necesario que el programa nos etiquete automáticamente cuando tenemos silencio y cuando no, para poder compararlo con el resto de etiquetas. Nuestro programa etiquetará todos los ficheros de años anteriores y comparará resultados, para obtener un f-score.
+
+Para ello será necesario hacer un código que determine cuando o cuando no, escribir en el fichero .vad. Todo esto se hará en el main_vad.c Nuestra solución es sencilla y no es ni mucho menos la más óptima, pero consideramos, que dentro de nuestras capacidades y valorando el tiempo invertido en la realización de esta práctica, es la que debemos entregar.
+
+Lo que nosotros queríamos implementar era un sistema que pudiera corregir situaciones como esta: 
+
+<img src="img/codigo4.jpeg" width="640" align="center">
+
+Y que los estados UNDEFINED maybe voice y maybe silence en lugar de printarse como tal, se printaran como el siguiente estado. Intentamos una versión pero funcionaba estrepitosamente, así que en nuestra última versión, decidimos que estos estados UNDEF serán printados como el estado anterior.
+
+Todo esto está implementado en main_vad.c
+
+#### ***Resultados***
+
+Después de compilar y ejecutar los ficheros oportunos, obtenemos los resultados.
+
+<img src="img/codigo3.jpeg" width="640" align="center">
+
 
 #### ***Estructura***
 
@@ -160,7 +220,6 @@ FOTOS CODIGO
 
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
   automática conseguida para el fichero grabado al efecto. 
-
 
 - Explique, si existen. las discrepancias entre el etiquetado manual y la detección automática.
 
