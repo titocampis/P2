@@ -111,6 +111,14 @@ EJEMPLO GRAFICA
 <img src="img/tanh.png" width="640" align="center">
 <img src="img/audio+etiquetas.png" width="640" align="center">
 
+A continuación adjuntamos una captura de los valores de nuestras etiquetas:
+
+<img src="img/numetiq.png" width="640" align="center">
+
+Además nuestros contorno de potencia y tasa de cruces por cero son los siguientes:
+
+<img src="img/analisisfrec.png" width="640" align="center">
+
 Con el código que nos viene ya implementado (que etiqueta de forma aleatoria) generamos aleatoriamente un fichero de etiquetas .lab que podremos observar con audacity
 
 //FOTO DE AUDACITY AUDIO Y ETIQUETA + ETIQUETA GENERADA POR EL PROGRAMA QUE ESTÁ SUBIDA AL DRIVE .LAB
