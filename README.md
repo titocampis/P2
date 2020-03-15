@@ -136,6 +136,13 @@ FALTA GRAFICA!!!
 
 	* ¿Es capaz de sacar alguna conclusión a partir de la evolución de la tasa de cruces por cero?
 
+Potencia de silencio
+
+<img src="img/silencio.png" width="640" align="center">
+
+Potencia de voz (concretamente a)
+
+<img src="img/a.png" width="640" align="center">
 
 ### Desarrollo del detector de actividad vocal
 
