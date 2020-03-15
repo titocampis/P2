@@ -150,8 +150,8 @@ El programa que implementaremos se basará en una máquina de estados, con los s
 
 Para empezar, no adaptamos el umbral de decisión a los niveles de la señal, pues estos pueden cambiar según la señal que tengamos. Por eso, para determinar el k0 cogeremos unas cuantas muestras del inicio de la señal (que sabemos que será silencio) y medimos la potencia del ruido, y con eso, determinamos el k0. A partir de k0 calculamos k1 y k2 con unas ciertas constantes alfa.
 
-<img src="img/codigo2.png" width="640" align="center">
-<img src="img/codigo1.png" width="640" align="center">
+<img src="img/codigo2.jpeg" width="640" align="center">
+<img src="img/codigo1.jpeg" width="640" align="center">
 
 #### ***Diagrama de estados del detector***
 
@@ -177,7 +177,7 @@ Para ello será necesario hacer un código que determine cuando o cuando no, esc
 
 Lo que nosotros queríamos implementar era un sistema que pudiera corregir situaciones como esta: 
 
-<img src="img/codigo4.png" width="640" align="center">
+<img src="img/codigo4.jpeg" width="640" align="center">
 
 Y que los estados UNDEFINED maybe voice y maybe silence en lugar de printarse como tal, se printaran como el siguiente estado. Intentamos una versión pero funcionaba estrepitosamente, así que en nuestra última versión, decidimos que estos estados UNDEF serán printados como el estado anterior.
 
@@ -187,7 +187,7 @@ Todo esto está implementado en main_vad.c
 
 Después de compilar y ejecutar los ficheros oportunos, obtenemos los resultados.
 
-<img src="img/codigo3.png" width="640" align="center">
+<img src="img/codigo3.jpeg" width="640" align="center">
 
 
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
