@@ -171,6 +171,24 @@ Todo esto está implementado en la función vad.c
 
 FOTOS CODIGO
 
+#### ***Generando los ficheros .vad***
+
+Una vez tenemos los estados, ahora es necesario que el programa nos etiquete automáticamente cuando tenemos silencio y cuando no, para poder compararlo con el resto de etiquetas. Nuestro programa etiquetará todos los ficheros de años anteriores y comparará resultados, para obtener un f-score.
+
+Para ello será necesario hacer un código que determine cuando o cuando no, escribir en el fichero .vad. Todo esto se hará en el main_vad.c Nuestra solución es sencilla y no es ni mucho menos la más óptima, pero consideramos, que dentro de nuestras capacidades y valorando el tiempo invertido en la realización de esta práctica, es la que debemos entregar.
+
+Lo que nosotros queríamos implementar era un sistema que pudiera corregir situaciones como esta: 
+
+FOTO!!!
+
+Y que los estados UNDEFINED maybe voice y maybe silence en lugar de printarse como tal, se printaran como el siguiente estado. Intentamos una versión pero funcionaba estrepitosamente, así que en nuestra última versión, decidimos que estos estados UNDEF serán printados como el estado anterior.
+
+Todo esto está implementado en main_vad.c
+
+#### ***Resultados***
+
+FALTA!!!
+
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
   automática conseguida para el fichero grabado al efecto. 
 
