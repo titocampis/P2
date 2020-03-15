@@ -107,8 +107,6 @@ Así, generamos una señal de audio y con audacity aplicamos las etiquetas corre
 
 //FOTO DE AUDACITY AUDIO Y ETIQUETAS, SI PUEDES PLOTEAR LA POTENCIA TAMB DE PUTA MADRE
 
-EJEMPLO GRAFICA
-<img src="img/tanh.png" width="640" align="center">
 <img src="img/audio+etiquetas.png" width="640" align="center">
 
 A continuación adjuntamos una captura de los valores de nuestras etiquetas:
