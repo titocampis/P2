@@ -87,8 +87,13 @@ int main(int argc, char *argv[]) {
     /* TODO: print only SILENCE and VOICE labels */
     /* As it is, it prints UNDEF segments but is should be merge to the proper value */
     if (state != last_state) {
-      if (t != last_t)
-        fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration, state2str(last_state));
+      if (t != last_t) {
+        if(state == ST_UNDEF){
+          fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration, state2str(last_state));
+        } else {
+          fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration, state2str(state));
+        }
+      }
       last_state = state;
       last_t = t;
     }
@@ -101,7 +106,7 @@ int main(int argc, char *argv[]) {
   state = vad_close(vad_data);
   /* TODO: what do you want to print, for last frames? */
   if (t != last_t)
-    fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration + n_read / (float) sf_info.samplerate, state2str(state));
+   // fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration + n_read / (float) sf_info.samplerate, state2str(state));
 
   /* clean up: free memory, close open files */
   free(buffer);
@@ -111,3 +116,4 @@ int main(int argc, char *argv[]) {
   if (sndfile_out) sf_close(sndfile_out);
   return 0;
 }
+
